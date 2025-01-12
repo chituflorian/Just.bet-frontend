@@ -1,13 +1,9 @@
-import Footer from "layouts/footer";
-import Header from "layouts/header";
-import { ThemeProvider } from "@components/providers/theme-provider";
-
-import { cn } from "@lib/utils";
 import { Metadata } from "next";
 import * as React from "react";
-
+import * as PlayerBehavior from "@models/player-behavior";
 import "@styles/globals.css";
-import { siteConfig } from "@lib/config";
+import { siteConfig } from "lib/config";
+import { cn } from "lib/utils";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -43,30 +39,21 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const getDashboardData = async () => {
+    const dashboardData = await PlayerBehavior.getPlayerBehaviorDashboard({
+      address: "0x220C795ee1af2B279d420eEAc7e16C79c6b90836",
+      timeFrom: 1736709148,
+      timeTo: 1736788348,
+    });
+    // console.log(dashboardData);
+  };
+
+  getDashboardData();
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body
-        className={cn(
-          "bg-background flex min-h-screen flex-col font-sans antialiased"
-        )}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Header />
-          {children}
-          <Footer />
-        </ThemeProvider>
-      </body>
+      <body className={cn("bg-background flex min-h-screen flex-col font-sans antialiased")}>{children}</body>
     </html>
   );
 }

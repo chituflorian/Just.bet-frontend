@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "ES2023",
+    "lib": ["dom", "dom.iterable", "esnext", "esnext.array", "ES2023.Array"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -13,15 +13,18 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "typeRoots": ["./node_modules/@types", "./types"],
     "baseUrl": ".",
     "paths": {
+      "@/*": ["./src/*"],
+      "~/*": ["./public/*"],
+      "@api": ["api/index.tsx"],
+      "@api/*": ["api/*"],
+      "@models/*": ["./models/*"],
+      "@features/*": ["./features/*"],
       "@components/*": ["./components/*"],
-      "@hooks/*": ["./hooks/*"],
-      "@types/*": ["./types/*"],
       "@lib/*": ["./lib/*"],
-      "@constants/*": ["constants/*"],
-      "@styles/*": ["styles/*"]
+      "@styles/*": ["./styles/*"],
+      "@types/*": ["./types/*"]
     },
     "incremental": true,
     "plugins": [
@@ -30,7 +33,7 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "custom.d.ts"],
   "exclude": ["node_modules"],
   "moduleResolution": ["node_modules", ".next", "node"]
 }
